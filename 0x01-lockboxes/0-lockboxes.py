@@ -15,21 +15,19 @@ def canUnlockAll(boxes):
     Returns (boolean): True if all every box can be accessed
     """
 
-    found_keys = []  # found but not used
-    used_keys = set()  # found and used
-    used_keys.add(0)
+    # Set to keep track of opened boxes
+    opened_boxes = {0}
 
-    for key in boxes[0]:
-        if key != 0:
-            found_keys.append(key)
+    # List to store keys found in the process
+    keys_to_process = boxes[0]
 
-    while found_keys:  # there are unused keys
-        key = found_keys[0]
-        found_keys = found_keys[1:]
-        used_keys.add(key)
+    while keys_to_process:
+        current_key = keys_to_process.pop()
 
-        for key in boxes[key]:
-            if key not in used_keys:
-                found_keys.append(key)
+        # Check if the key corresponds to a valid box
+        if 0 <= current_key < len(boxes) and current_key not in opened_boxes:
+            opened_boxes.add(current_key)
+            keys_to_process.extend(boxes[current_key])
 
-    return len(boxes) == len(explored_keys)
+    # Check if all boxes are opened
+    return len(opened_boxes) == len(boxes)
