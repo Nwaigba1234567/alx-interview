@@ -1,4 +1,5 @@
-s module define q program that solves the N-Queens puzzle
+#!/usr/bin/python3
+"""This module define q program that solves the N-Queens puzzle
 """
 import sys
 
