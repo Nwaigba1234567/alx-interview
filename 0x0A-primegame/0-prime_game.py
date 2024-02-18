@@ -1,52 +1,40 @@
 #!/usr/bin/python3
 """This kodule define the isWinner amd other helper functions
 """
-def is_prime(num):
-    if num < 2:
-        return False
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
-            return False
-    return True
 
-def get_primes(n):
-    primes = []
-    for num in range(2, n + 1):
-        if is_prime(num):
-            primes.append(num)
-    return primes
 
 def isWinner(x, nums):
-    prime_cache = {}
-    
+    """Define the Prime game
+    """
+
+    def sieve_of_eratosthenes(n):
+        primes = [True] * (n + 1)
+        primes[0] = primes[1] = False
+        for i in range(2, int(n ** 0.5) + 1):
+            if primes[i]:
+                for j in range(i * i, n + 1, i):
+                    primes[j] = False
+        return [i for i in range(n + 1) if primes[i]]
+
     def can_win(n):
-        if n in prime_cache:
-            return prime_cache[n]
-        
-        primes = get_primes(n)
-        if not primes:
-            prime_cache[n] = False
-            return False
-        
-        # Check if Maria can win
-        for prime in primes:
-            if not can_win(n - prime):
-                prime_cache[n] = True
-                return True
-        
-        # If Maria cannot win, then Ben wins
-        prime_cache[n] = False
+        primes = sieve_of_eratosthenes(n)
+        if n in primes:
+            return True
         return False
-    
+
     maria_wins = 0
+    ben_wins = 0
+
     for n in nums:
         if can_win(n):
-            maria_wins += 1
-    
-    if maria_wins > x // 2:
+            if n % 2 == 0:
+                maria_wins += 1
+            else:
+                ben_wins += 1
+
+    if maria_wins > ben_wins:
         return "Maria"
-    elif maria_wins < x // 2:
+    elif ben_wins > maria_wins:
         return "Ben"
     else:
         return None
-
