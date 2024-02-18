@@ -1,5 +1,5 @@
-#!/usr/bin/python3
-"""This module define the island_perimeter function
+#!/usr/bin/python3 
+"""This module define the island_perimeter functions
 """
 
 
