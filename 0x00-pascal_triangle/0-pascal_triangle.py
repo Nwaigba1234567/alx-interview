@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ This module defines a pascal triangle
-implementation
+implementation that returns a list of lists of integers
+representing the Pascal’s triangle of n
 """
 
 
