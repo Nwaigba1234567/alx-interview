@@ -15,19 +15,14 @@ def canUnlockAll(boxes):
     Returns (boolean): True if all every box can be accessed
     """
 
-    # Set to keep track of opened boxes
-    opened_boxes = {0}
+    if not boxes or type(boxes) is not list:
+        return False
 
-    # List to store keys found in the process
-    keys_to_process = boxes[0]
-
-    while keys_to_process:
-        current_key = keys_to_process.pop()
-
-        # Check if the key corresponds to a valid box
-        if 0 <= current_key < len(boxes) and current_key not in opened_boxes:
-            opened_boxes.add(current_key)
-            keys_to_process.extend(boxes[current_key])
-
-    # Check if all boxes are opened
-    return len(opened_boxes) == len(boxes)
+    unlocked = [0]
+    for n in unlocked:
+        for key in boxes[n]:
+            if key not in unlocked and key < len(boxes):
+                unlocked.append(key)
+    if len(unlocked) == len(boxes):
+        return True
+    return False
